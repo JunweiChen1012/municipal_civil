@@ -1,0 +1,437 @@
+---
+title: "Impact of Civil Service Reforms on Foreign-Born Whites in American Municipalities"
+execute:
+  echo: false
+  message: false
+  warning: false
+title-block-banner: true
+author:  
+   - Junwei Chen
+date: today
+date-format: long
+format: pdf
+editor: visual
+toc: true
+number-sections: true
+abstract: "This study revisits the narrative surrounding the impact of municipal civil service reforms on the representation of foreign-born whites in American cities during the Progressive Era. Contrary to the established view that these reforms marginalized immigrant populations, our findings, derived from a subset of empirical analyses focusing on the representation of foreign-born whites in municipal government employment, challenge this perspective. Specifically, we examine the representation of foreign-born whites in various roles within municipal governments before and after the implementation of civil service reforms, the timing of these reforms, and their differential impact on blue-collar versus white-collar employment sectors. Our analysis reveals that, contrary to previous claims, civil service reforms did not lead to a decrease in the representation of foreign-born whites; instead, these reforms coincided with increased representation, particularly in blue-collar jobs, with significant gains observed among Irish immigrants. By employing a focused examination on a subset of results from the original study, including detailed analyses of representation patterns, reform timing, and employment sector impacts, we contribute to a nuanced understanding of the reforms' effects. Our findings suggest a revisionist interpretation of the Progressive Era's civil service reforms, emphasizing their complex and varied impact on immigrant representation in municipal employment."
+
+thanks: "Code and reporduction data are available at: https://github.com/JunweiChen1012/municipal_civil.git and https://doi.org/10.48152/ssrp-w00f-4s93"
+bibliography: ref.bib
+---
+
+# Introduction
+
+In recent scholarly discourse, the examination of municipal civil service reforms and their implications for the representation of foreign-born whites in American city governments during the Progressive Era has been a topic of significant debate and have centered on the extent to which these reforms influenced the employment opportunities available to immigrant populations, challenging traditional narratives that have often portrayed such reforms as mechanisms of exclusion [@banfield1963city] & [@richard1877age]. Before, people thought the main goal of changing how city jobs were given was to reduce the number of immigrants in these jobs. But new findings suggest something different. They show that these changes didn't always make it harder for immigrants to get jobs. In fact, in some cases, immigrants ended up getting more jobs in city governments than before. This is especially true for Irish immigrants and others in similar situations. This new view challenges old ideas and shows us that the impact of these job changes was more complicated and varied. It's an important discussion because it helps us understand better how immigrants fit into American city governments back then, showing that the situation was not as straightforward as it seemed.
+
+The recent study conducted by the authors of the \[\@kuipers2023representational\] paper has significantly shifted the narrative around the historic municipal civil service reforms. Offering a thorough and insightful examination, this work introduces a counter-narrative to the traditionally accepted goals and impacts of these reforms. The authors challenge the widely held belief that the primary aim of these reforms was to limit the number of recent immigrants in city government jobs. Instead, their findings reveal a more complex reality where these reforms, contrary to diminishing the employment opportunities for foreign-born whites, actually played a pivotal role in enhancing their representation within the municipal workforce. This was particularly evident among Irish immigrants engaged in manual or blue-collar occupations. The analysis not only questions the original intentions behind the implementation of such reforms but also highlights the unintended positive outcomes for certain immigrant groups. By dissecting the nuanced effects of these reforms, the paper sheds light on how they inadvertently became a vehicle for greater inclusivity, allowing for a more diverse representation in local government roles. This revelation is crucial as it not only reframes our understanding of the reforms' objectives but also underscores the complex interplay between policy intentions and their real-world outcomes, particularly in the context of immigrant integration into the public sector workforce.
+
+This paper is dedicated to deepening the conversation initiated by the insightful analysis presented in the [@kuipers2023representational] paper. By honing in on a select portion of their groundbreaking findings, we intend not only to corroborate their results but also to broaden the scope of understanding surrounding the impact of civil service reforms. Our research zeroes in on the nuanced experiences of foreign-born whites within the framework of municipal governments, closely examining how the timing and implementation of these reforms varied across different American cities and how these variations influenced employment outcomes across diverse job sectors. Through this meticulous approach, we aim to shed light on the specific dynamics of reform effects, exploring whether and how these legislative changes facilitated or hindered the integration of immigrant populations into the public sector labor force. By pinpointing these aspects, our study seeks to provide a more granular view of the representational shifts within municipal employment, thereby offering a richer, more detailed extension to the foundational conclusions drawn by Kuipers and colleagues. In doing so, we hope to not only affirm the validity of their findings but also to contribute new insights into the complex interplay between policy reform, immigrant employment, and the evolving landscape of municipal governance.
+
+Our methodology is anchored in a rigorous reexamination of how foreign-born whites were represented within municipal governments, leveraging advanced statistical methods to dissect the longitudinal effects of civil service reforms. This comprehensive analytical strategy enables us to dissect the layered effects these reforms had across different employment sectors, notably distinguishing between blue-collar and white-collar occupations. Such a distinction is crucial for understanding the multifaceted outcomes of the reforms, as it unveils the varied experiences of immigrant workers depending on their job classification within the municipal workforce. This granular approach to data analysis not only allows us to trace the evolution of employment patterns among foreign-born whites over time but also to identify specific instances where civil service reforms may have disproportionately benefited or disadvantaged certain groups within this demographic. By examining the interplay between legislative changes and employment trends, our study aims to uncover the complex mechanisms through which civil service reforms influenced the integration and representation of immigrant populations in public sector employment. Furthermore, our investigation extends to exploring the broader socio-political context in which these reforms were enacted, considering factors such as the prevailing attitudes towards immigrants, the economic demands of the municipalities, and the strategic objectives behind the implementation of civil service reforms. Through this multifaceted analysis, we seek to contribute a nuanced perspective to the ongoing discourse on the Progressive Era's civil service reforms, offering a richer understanding of their implications for foreign-born whites in municipal governments. In doing so, our work aspires to provide valuable insights that can inform both historical scholarship and contemporary policy discussions related to immigration, labor, and public administration.
+
+# **Data**
+
+This study aims to reproduce and analyze a subset of results from the original research presented in [@kuipers2023representational] focusing on the impact of civil service reforms on the representation of foreign-born whites in municipal governments from 1880 to 1940. To achieve this, we have relied on an array of historical datasets and methodological approaches as delineated in the original study.
+
+**Primary Data Sources:**
+
+1.  **Historical Census Data:** We utilized full-count decennial census data from 1850 to 1940 to extract information on municipal employees, including their race, birthplace, and employment status within local government. This comprehensive dataset enabled us to identify foreign-born whites employed in municipal governments and distinguish between blue-collar and white-collar occupations.
+
+2.  **Civil Service Reform Adoption Dates:** Data on the timing of civil service reform implementation in American municipalities were collected from three surveys conducted by the U.S. Civil Service Assembly in 1937, 1940, and 1943. These surveys provided detailed information on the year of adoption of civil service reforms across various municipalities, which is crucial for our temporal analysis of reform impacts.
+
+## Methodology
+
+In our study, we employ R [@r] to replicate and analyze a subset of results from the original paper on the impact of civil service reforms on the representation of foreign-born whites in municipal governments. Utilizing a suite of R packages, including **`tidyverse`** [@tidyverse] for comprehensive data manipulation and visualization, **`ipumsr`** [@ipumsr] for importing IPUMS data, **`labelled`** [@labelled], **`readstata13`** [@readstata13] for data handling, **`estimatr`** [@estimatr]for statistical estimations, **`ggrepel`** [@ggrepel] for non-overlapping text in plots, **`lfe`** [@lfe] and **`fixest`** [@fixest] for econometric models with fixed effects, **`stargazer`** [@stargazer] for regression table outputs, **`rdrobust`** [@rdrobust] for regression discontinuity designs, and **`purrr`** [@purrr] and **`dplyr`** [@dbplyr] for functional programming and data manipulation.
+
+# Results and Discussion
+
+Our study's analysis offers a nuanced understanding of the representation of foreign-born whites in municipal governments before and after civil service reforms, affirming and expanding upon the findings of the original study. The discussion is organized into sub-sections based on our results, followed by a consideration of the study's limitations and directions for future research.
+
+## **Representation Before and After Civil Service Reforms**
+
+The chart in @fig-1 shows us a clear picture of how foreign-born whites fit into city jobs in 1880 and 1930. These were big years for changes, as new rules were made about who could get these jobs. But what's interesting is that the effect of these new rules wasn't the same everywhere. Some places saw big changes, while others didn't, showing us that there's more to the story than just the new rules. What made the difference? Things like how many immigrants lived in a city, or what people in that city thought about immigration and jobs. These factors played a big role in deciding whether immigrants found it easier or harder to get city jobs after the new rules came in. @fig-1 really helps us see that the situation was complex. Not every city reacted the same way to the new rules, showing that where you lived mattered a lot. It tells us that to really understand why things changed the way they did, we need to look at the bigger picture, including what was going on in society and politics at the time. This deeper look can help us get why foreign-born whites had different experiences in getting city jobs during those years.
+
+```{r}
+#loading necessary libraries
+library(rdrobust)
+library(tidyverse)
+library(ipumsr)
+library(labelled)
+library(readstata13)
+library(estimatr)
+library(ggrepel)
+library(lfe)
+library(stargazer)
+library(fixest)
+library(rdrobust)
+library(purrr)
+library(dplyr)
+library(stringr)
+```
+
+```{r}
+#load the functions you will need to conduct the analyses/clean the data
+source("municipal_civil/scripts/functions.R")
+
+#load the aggregated data frame that is returned by the script "make_census_long.R"
+analysis_df = read.csv("municipal_civil/inputs/data/census_stack_long_new_bc.csv")
+
+```
+
+```{r}
+
+treat_dates <- analysis_df %>%
+  group_by(city, YEAR, occ_recode, treat, all, police, fire) %>% 
+  summarise() %>%
+  left_join(analysis_df %>%
+              group_by(city, YEAR) %>%
+              summarise(govt_n_total = sum(num[industry_recode=='local']))) %>%
+  rename(occ = occ_recode)
+
+#race x nativity
+race = prop.wide(analysis_df, var1 = "race_recode", var2 = "birthplace_recode_first") %>%
+  mutate_at(vars(black_x_foreign_born:white_x_native_born), funs(ifelse(is.na(.), 0, .)))
+
+race_govt = prop.wide(analysis_df, var1 = "race_recode", var2 = "birthplace_recode_first", subset = "industry_recode=='local'") %>%
+  mutate_at(vars(black_x_foreign_born:white_x_native_born), funs(ifelse(is.na(.), 0, .))) %>%
+  rename_at(vars(n_total:white_x_native_born), funs(paste0("govt_", .)))
+
+analysis_df_1 = left_join(race, race_govt) %>%
+  mutate_at(vars(n_total:white_x_native_born), funs(ifelse(is.na(.), 0, .)))
+
+
+
+#main analysis - foreign born grouping
+race = prop.wide(analysis_df, var1 = "birthplace_recode_foreign") %>%
+  mutate_at(vars(n_total:russian), funs(ifelse(is.na(.), 0, .)))
+
+race_govt = prop.wide(analysis_df, var1 = "birthplace_recode_foreign", subset = "industry_recode=='local'") %>%
+  mutate_at(vars(n_total:russian), funs(ifelse(is.na(.), 0, .))) %>%
+  rename_at(vars(n_total:russian), funs(paste0("govt_", .)))
+
+analysis_df_2 = left_join(race, race_govt) %>%
+  mutate_at(vars(n_total:govt_russian), funs(ifelse(is.na(.), 0, .))) %>%
+   left_join(treat_dates %>%
+               filter(occ=='blue_collar') %>%
+               group_by(city, treat, all, police, fire) %>%
+               summarise())
+
+#main analysis - foreign born grouping with type of work
+race = prop.wide(analysis_df, var1 = "race_recode", var2 = "birthplace_recode_first") %>%
+  mutate_at(vars(black_x_foreign_born:white_x_native_born), funs(ifelse(is.na(.), 0, .)))
+
+race_govt = 
+  prop.wide.job.stack(analysis_df, var1 = "race_recode", var2 = "birthplace_recode_first", subset = "industry_recode=='local'") %>%
+  mutate_at(vars(black_x_foreign_born:white_x_native_born), funs(ifelse(is.na(.), 0, .))) %>%
+  rename_at(vars(black_x_foreign_born:white_x_native_born), funs(paste0("govt_", .)))
+
+analysis_df_3 = full_join(race_govt, race) %>%
+  left_join(treat_dates)
+
+
+####FOREIGN BREAKDOWN
+race = prop.wide(analysis_df, var1 = "birthplace_recode_foreign") %>%
+  mutate_at(vars(german:russian), funs(ifelse(is.na(.), 0, .)))
+
+race_govt = 
+  prop.wide.job.stack(analysis_df, var1 = "birthplace_recode_foreign", subset = "industry_recode=='local'") %>%
+  mutate_at(vars(german:russian), funs(ifelse(is.na(.), 0, .))) %>%
+  rename_at(vars(german:russian), funs(paste0("govt_", .)))
+
+analysis_df_4 = left_join(race_govt, race) %>%
+ left_join(treat_dates)
+
+```
+
+```{r}
+#| label: fig-1
+#| fig-cap: "Representation of Foreign-Born Whites in Municipal Government, 1880 and 1930"
+#| fig-subcap: ["Representation in 1880", "Representation in 1930"]
+#| layout-ncol: 1
+#| layout-nrow: 2
+plotdata1880 =
+  analysis_df_1 %>%
+  mutate(big_city = city %in% c("new york, ny", "cleveland, oh", "chicago, il",
+                                "akron, oh", "manchester, nh", "quincy, ma"
+                                )*1) %>%
+  mutate(city = case_when(city == "new york, ny" ~ "New York, NY",
+                          city == "cleveland, oh" ~ "Cleveland, OH",
+                          city == "chicago, il" ~ "Chicago, IL",
+                          city == "akron, oh" ~ "Akron, OH",
+                          city == "manchester, nh" ~ "Manchester, NH",
+                          city == "quincy, ma" ~ "Quincy, MA",
+                          TRUE ~ city)) %>%
+  filter(YEAR == 1880)
+
+plotdata1880 %>% ggplot(aes(x=white_x_foreign_born*100, y = govt_white_x_foreign_born*100, alpha = factor(big_city), color = factor(big_city), label = city, size = n_total)) +
+  geom_point() +
+  scale_alpha_manual(values = c(0.3, 0.8)) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), 
+        panel.grid.major.x = element_blank(),
+        axis.line.y.left = element_blank(),
+        legend.position = "none",
+        strip.background = element_blank(),
+        legend.title = element_blank(),
+        axis.ticks.y.left = element_blank(),
+        axis.line = element_line(colour = "black"),
+        panel.border = element_blank()) +
+  scale_color_manual(values = c("grey50", "black")) +
+  ylab("Foreign-Born Whites in Government (%)") +
+  xlab("Foreign-Born Whites in Population (%)") +
+  geom_text_repel(data = subset(plotdata1880, big_city == 1),
+                  size          = 3,
+                  box.padding   = 1,
+                  point.padding = 0.5,
+                  force         = 100,
+                  segment.size  = 0.2,
+                  segment.color = "black") +
+  theme(legend.position = "none") +
+  theme(text=element_text(size=10))
+
+
+
+
+plotdata1930 <-
+  analysis_df_1 %>%
+  mutate(big_city = city %in% c("new york, ny", "cleveland, oh", "chicago, il",
+                                "akron, oh", "manchester, nh", "quincy, ma")*1) %>%
+  mutate(city = case_when(city == "new york, ny" ~ "New York, NY",
+                          city == "cleveland, oh" ~ "Cleveland, OH",
+                          city == "chicago, il" ~ "Chicago, IL",
+                          city == "akron, oh" ~ "Akron, OH",
+                          city == "manchester, nh" ~ "Manchester, NH",
+                          city == "quincy, ma" ~ "Quincy, MA",
+                          TRUE ~ city)) %>%
+  filter(YEAR == 1930)
+
+
+plotdata1930 %>% ggplot(aes(x=white_x_foreign_born*100, y = govt_white_x_foreign_born*100, alpha = factor(big_city), color = factor(big_city), label = city, size = n_total)) +
+  geom_point() +
+  scale_alpha_manual(values = c(0.3, 0.8)) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), 
+        panel.grid.major.x = element_blank(),
+        axis.line.y.left = element_blank(),
+        legend.position = "none",
+        strip.background = element_blank(),
+        legend.title = element_blank(),
+        axis.ticks.y.left = element_blank(),
+        axis.line = element_line(colour = "black"),
+        panel.border = element_blank()) +
+  scale_color_manual(values = c("grey50", "black")) +
+  ylab("Foreign-Born Whites in Government (%)") +
+  xlab("Foreign-Born Whites in Population (%)") +
+  geom_text_repel(data = subset(plotdata1930, big_city == 1),
+                  size          = 3,
+                  box.padding   = 1,
+                  point.padding = 0.5,
+                  force         = 30,
+                  segment.size  = 0.2,
+                  segment.color = "black") +
+  theme(legend.position = "none") +
+  theme(text=element_text(size=10))
+
+
+
+```
+
+## **Timing and Adoption of Reforms**
+
+The chart in @fig-2 shows us how cities started using the new job rules at different times, not all at once. This tells us that bigger rules from the state and efforts by local groups played a big part in when and how these changes happened. Some cities started early because the state told them to, while in others, people in the city pushed for the change because they wanted jobs to be given out more fairly and for the city to run better. Seeing these changes happen at different times helps us understand that there were big movements going on, with lots of people wanting to make sure city jobs were given out based on what you know, not who you know. This shows that the new rules were both a result of these big movements and also helped speed up changes in how cities hired people. It's like the new rules were both following what people wanted and also helping lead the way to making things better in how city jobs were given out.
+
+```{r}
+#| label: fig-2
+#| fig-cap: "Timing of Civil Service Reforms in American Municipalities, 1884–1943"
+
+read.csv("municipal_civil/inputs/data/cities_reform.csv") %>%
+  ggplot(aes(x=as.numeric(as.character(Year)))) +
+  geom_histogram(color = "black", fill = "grey50", bins = 65) +
+  theme_bw() +
+  xlim(1880, 1945) +
+  ylab("") +
+  xlab("") +
+  theme(panel.grid.minor = element_blank(), 
+        panel.grid.major.x = element_blank(),
+        axis.line.y.left = element_blank(),
+        legend.position = "none",
+        strip.background = element_blank(),
+        legend.title = element_blank(),
+        axis.ticks.y.left = element_blank(),
+        axis.line = element_line(colour = "black"),
+        panel.border = element_blank()) +
+  theme(text=element_text(size=10))
+
+
+```
+
+## **Differential Impacts on Employment Sectors**
+
+The picture in @fig-34-1 shows us something really interesting about how the new job rules affected different types of jobs in the city. There are two main kinds of jobs we're looking at: blue-collar jobs, which are usually more about physical work, and white-collar jobs, which are more about office or desk work. What we see is that these rules didn't have the same effect on both types of jobs. This difference is super important to get why the impact of the new rules is a bit complicated. It looks like when cities started hiring based on skills and tests (what we call "merit-based" hiring), it ended up helping some immigrant workers more than others. For blue-collar jobs, the kind that involves more hands-on work, immigrants who didn't have as many chances before started getting more opportunities. This was a big deal because it meant that these new rules might have actually helped some immigrant groups get better jobs in the city, especially in areas where they weren't well represented before. So, @fig-34-1 really helps us see that these changes in hiring rules weren't just simple; they had different outcomes depending on what type of job you're talking about. And for people coming from other countries looking for work, this shift towards hiring based on skills could mean a better shot at getting into blue-collar jobs, where they might have found it tough to get in before.
+
+## **Specific Outcomes for Foreign-Born White Nationality Groups**
+
+@fig-34-2 gives us a closer look at how the new job rules helped or didn't help immigrants from different places. What's really interesting is seeing that not everyone was affected in the same way. For example, people who came from Ireland and were looking for city jobs actually found more opportunities because of these changes. This is a big deal because it shows us that the idea that all immigrants had a harder time getting city jobs because of these rules isn't exactly right. This shows us that where someone comes from—their ethnic or national background—makes a big difference in how these job rules worked out for them. Irish immigrants doing better under these new rules is a clear example that we need to think about each group's unique situation when we're looking at who won and who didn't with these changes. So, @fig-34-2 is really helpful because it makes us think more about how everyone's experience wasn't the same. It's like a reminder that when we're trying to figure out if these job rules were good or bad, we have to remember that for some people, especially the Irish, these rules actually opened up more doors to work in city jobs
+
+```{r}
+#| label: fig-34
+#| fig-cap: "Effect of Civil Service Reforms"
+#| fig-subcap: ["Effect of Civil Service Reforms on Representation", "Effect of Civil Service Reforms on Foreign-Born White Representation"]
+#| layout-ncol: 1
+#| layout-nrow: 2
+
+make_twfe_event_study <- function(df, govt_prop, pop_prop, occ_filter, lab1, lab2){
+  # Enquote the variables for tidy evaluation within dplyr verbs
+  var_govt_prop = enquo(govt_prop)
+  var_pop_prop = enquo(pop_prop)
+  
+  # Filter and mutate the dataframe
+  df <- df %>%
+    filter(eval(parse(text = occ_filter))) %>%
+    mutate(
+      # Outcome variables
+      govt_prop = !!var_govt_prop,
+      pop_prop = !!var_pop_prop,
+      over_prop = govt_prop - pop_prop,
+      
+      # Independent variables
+      ever_treat = as.numeric(!is.na(treat)),
+      distance = case_when(ever_treat == 0 ~ 0,
+                           TRUE ~ as.numeric(YEAR) - as.numeric(all)),
+      grouped_distance = floor(distance / 10)
+    )
+  
+  # Run the fixed effects model
+  model <- feols(govt_prop ~ i(grouped_distance, ever_treat, ref = -1) + pop_prop | city + YEAR, cluster = ~city, data = df)
+  
+  # Extract and prepare results manually
+  results <- data.frame(
+    term = names(coef(model)),
+    estimate = coef(model),
+    std.error = se(model),
+    stringsAsFactors = FALSE
+  )
+  
+  # Optionally add the -1 row if needed
+  results <- rbind(results, data.frame(term = "-1", estimate = 0, std.error = NA, stringsAsFactors = FALSE))
+  
+  # Clean up the term names and add additional labels
+  results <- results %>%
+    mutate(
+      val = str_remove_all(term, "[[:alpha:]]|\\_|\\:"),
+      lab1 = lab1,
+      lab2 = lab2
+    )
+  
+  return(results)
+}
+
+
+#blue collar plots----------------------------------------------------------------------
+bc_out1 <- make_twfe_event_study(analysis_df_3, govt_white_x_foreign_born, white_x_foreign_born, 'occ == "blue_collar"', lab1 = "White Foreign Born", lab2 = "Blue Collar")
+bc_out2 <- make_twfe_event_study(analysis_df_3, govt_white_x_native_born, white_x_native_born, 'occ == "blue_collar"', lab1 = "White Native Born", lab2 = "Blue Collar")
+bc_out3 <- make_twfe_event_study(analysis_df_3, govt_black_x_native_born, black_x_native_born, 'occ == "blue_collar"', lab1 = "Black Native Born", lab2 = "Blue Collar")
+
+bc_out4 <- make_twfe_event_study(analysis_df_4, govt_irish, irish, 'occ == "blue_collar"', lab1 = "Irish", lab2 = "Blue Collar")
+bc_out5 <- make_twfe_event_study(analysis_df_4, govt_german, german, 'occ == "blue_collar"', lab1 = "German", lab2 = "Blue Collar")
+bc_out6 <- make_twfe_event_study(analysis_df_4, govt_italian, italian, 'occ == "blue_collar"', lab1 = "Italian", lab2 = "Blue Collar")
+bc_out7 <- make_twfe_event_study(analysis_df_4, govt_polish, polish, 'occ == "blue_collar"', lab1 = "Polish", lab2 = "Blue Collar")
+bc_out8 <- make_twfe_event_study(analysis_df_4, govt_russian, russian, 'occ == "blue_collar"', lab1 = "Russian", lab2 = "Blue Collar")
+
+#white collar plots----------------------------------------------------------------------
+wc_out1 <- make_twfe_event_study(analysis_df_3, govt_white_x_foreign_born, white_x_foreign_born, 'occ == "white_collar"', lab1 = "White Foreign Born", lab2 = "White Collar")
+wc_out2 <- make_twfe_event_study(analysis_df_3, govt_white_x_native_born, white_x_native_born, 'occ == "white_collar"', lab1 = "White Native Born", lab2 = "White Collar")
+wc_out3 <- make_twfe_event_study(analysis_df_3, govt_black_x_native_born, black_x_native_born, 'occ == "white_collar"', lab1 = "Black Native Born", lab2 = "White Collar")
+
+wc_out4 <- make_twfe_event_study(analysis_df_4, govt_irish, irish, 'occ == "white_collar"', lab1 = "Irish", lab2 = "White Collar")
+wc_out5 <- make_twfe_event_study(analysis_df_4, govt_german, german, 'occ == "white_collar"', lab1 = "German", lab2 = "White Collar")
+wc_out6 <- make_twfe_event_study(analysis_df_4, govt_italian, italian, 'occ == "white_collar"', lab1 = "Italian", lab2 = "White Collar")
+wc_out7 <- make_twfe_event_study(analysis_df_4, govt_polish, polish, 'occ == "white_collar"', lab1 = "Polish", lab2 = "White Collar")
+wc_out8 <- make_twfe_event_study(analysis_df_4, govt_russian, russian, 'occ == "white_collar"', lab1 = "Russian", lab2 = "White Collar")
+
+
+  bind_rows(bc_out1, bc_out2, bc_out3,
+          wc_out1, wc_out2, wc_out3) %>%
+  mutate(val = as.numeric(as.character(val))) %>%
+  mutate(pre_post = (val > -1)*1) %>%
+  mutate(lab1 = factor(lab1, levels = c("White Foreign Born", "Black Native Born", "White Native Born"))) %>%
+  ggplot(aes(x=val, y = estimate, shape = lab1, color = lab1, group = lab1, alpha = factor(pre_post))) +
+  geom_point(position = position_dodge(width = 0.5)) +
+  geom_errorbar(aes(ymin = estimate - 1.96*std.error, ymax = estimate + 1.96*std.error), 
+                position = position_dodge(width = 0.5),
+                width = 0) +
+  geom_hline(yintercept = 0, linetype = "dotted") +
+  facet_wrap(lab2~.) +
+  theme_bw() +
+  scale_colour_grey() +
+  xlab("Decades Before/After Civil Service Reform") +
+  ylab("Effect of Civil Service Reform on Representation") +
+  theme(panel.grid.minor = element_blank(), 
+        panel.grid.major.x = element_blank(),
+        axis.line.y.left = element_blank(),
+        legend.position = "bottom",
+        axis.ticks.y = element_blank(),
+        strip.background = element_blank(),
+        legend.title = element_blank(),
+        axis.line = element_line(colour = "black"),
+        panel.border = element_blank()) +
+  scale_x_continuous(breaks = seq(-4, 4, by = 1), 
+                     limits = c(-4.5, 4.5)) +
+  scale_alpha_manual(values = c(0.4, 1)) +
+  guides(alpha = FALSE) +
+  ylim(-0.15, 0.15) +
+  theme(text=element_text(size=9))
+
+
+  bind_rows(bc_out4, bc_out5, bc_out6, bc_out7, bc_out8,
+            wc_out4, wc_out5, wc_out6, wc_out7, wc_out8) %>%
+  mutate(val = as.numeric(as.character(val))) %>%
+  mutate(lab1 = factor(lab1, levels = c("Irish", "German", "Italian", "Polish", "Russian"))) %>%
+  mutate(pre_post = (val > -1)*1) %>%
+  ggplot(aes(x=val, y = estimate, shape = lab1, color = lab1, group = lab1, alpha = factor(pre_post))) +
+  geom_point(position = position_dodge(width = 0.5)) +
+  geom_errorbar(aes(ymin = estimate - 1.96*std.error, ymax = estimate + 1.96*std.error), 
+                position = position_dodge(width = 0.5),
+                width = 0) +
+  geom_hline(yintercept = 0, linetype = "dotted") +
+  facet_wrap(lab2~.) +
+  theme_bw() +
+  scale_colour_grey() +
+  xlab("Decades Before/After Civil Service Reform") +
+  ylab("Effect of Civil Service Reform on Representation") +
+  theme(panel.grid.minor = element_blank(), 
+        panel.grid.major.x = element_blank(),
+        axis.line.y.left = element_blank(),
+        axis.ticks.y = element_blank(),
+        legend.position = "bottom",
+        strip.background = element_blank(),
+        legend.title = element_blank(),
+        axis.line = element_line(colour = "black"),
+        panel.border = element_blank()) +
+  scale_x_continuous(breaks = seq(-4, 4, by = 1), 
+                     limits = c(-4.5, 4.5)) +
+  scale_alpha_manual(values = c(0.4, 1)) +
+  guides(alpha = FALSE) +
+  ylim(-0.1, 0.1) +
+  theme(text=element_text(size=9))
+```
+
+## **Limitations and Future Research**
+
+Our research shines a light on how new job rules in city governments affected immigrants from other countries, but it's important to remember we didn't catch everything. We used old records from the census to help us understand, but these records don't tell us every detail about the jobs or the hidden challenges these immigrants might have faced when trying to get these jobs. Plus, since we only looked at certain parts of the information, we might have missed out on some big patterns or other important things that could change how we see these job rule changes.
+
+Looking ahead, there's a lot more work to do. Future studies could dig deeper by looking at more detailed information about how cities hired people and how these hiring rules were actually put into practice. It would be really helpful to hear stories from the different immigrant groups about their experiences. Also, understanding the local politics in cities and how these influenced the new job rules could give us a clearer picture. And by comparing what happened in different places or states, we can learn more about why these new job rules helped some immigrants more than others in different cities.
+
+By doing this kind of research, we can get a better handle on the whole story of how these job rule changes really played out and what they meant for immigrants looking for government jobs. This can help make things fairer for everyone in the future.
+
+# Conclusion
+
+Our research dives deep into how the changes in city job rules really affected immigrants in America, showing that it's a pretty complicated story. Some people ended up with better chances to get city jobs because of these rules, while for others, not much changed. We looked closely at how these job rules worked differently in various kinds of jobs and for people from different places around the world. This helps us all get a clearer picture of what was going on in American cities during this important time.
+
+What's cool about our study is that it helps everyone understand just how many layers there are to this story. It wasn't just about making hiring fairer; it was also about who really got a fair shot at a job and who didn't. And it turns out, where you were from could make a big difference.
+
+Looking ahead, there's still a lot more to figure out. Future studies have a chance to dig even deeper, finding out more about why these job rule changes happened the way they did and what that means for people trying to get government jobs today. This kind of work is super important because it can teach us a lot about how to make job opportunities fairer for everyone, no matter where they're from.
+
+# References
