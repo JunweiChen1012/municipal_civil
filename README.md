@@ -1,4 +1,4 @@
-# The Representational Consequences of Municipal Civil Service Reform∗
+# Impact of Civil Service Reforms on Foreign-Born Whites in American Municipalities∗
 
 ## Overview
 This repo contains the code and data to produce 1) a paper which is a reproduction of Kuipers and Sahn (2023)'s paper, "The Representational Consequences of Municipal Civil Service Reform".
