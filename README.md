@@ -19,4 +19,4 @@ The repo is structured as:
 -   `scripts` contains the R script used to  clean data.
 
 ## Statement on LLM usage
-some parts of the codes in quarto were written with the help of chatgpt4. all of the chats are added in the input/usage.txt.
+some parts of the codes in quarto were written with the help of chatgpt4. all of the chats are added in the Other/LLM/usage.txt.
