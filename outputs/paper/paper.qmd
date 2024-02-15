@@ -6,7 +6,7 @@ execute:
   warning: false
 title-block-banner: true
 author:  
-   - Junwei Chen, Erping Gong
+   - Junwei Chen
 date: today
 date-format: long
 format: pdf
